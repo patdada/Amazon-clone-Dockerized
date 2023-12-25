@@ -6,7 +6,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 
 COPY package.json ./
-COPY npm.lock .
+COPY yarn.npm.lock .
 
 RUN npm install 
 
