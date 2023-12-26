@@ -12,7 +12,7 @@ pipeline {
         stage('SCM Checkout') {
             
               agent {
-         docker { image 'ubuntu:23.04' }
+         docker { image 'arm64v8/ubuntu:23.04' }
       }
             
             steps{
