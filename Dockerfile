@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:lts-buster-slim
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
@@ -6,10 +6,10 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 
 COPY package.json ./
-COPY npm.lock .
+COPY yarn.lock .
 
 RUN npm install 
 
 COPY . . 
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
