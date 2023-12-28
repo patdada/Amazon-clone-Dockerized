@@ -12,7 +12,8 @@ pipeline {
         stage('SCM Checkout') {
             
               agent {
-         docker { image 'arm64v8/ubuntu:23.04' }
+         docker { image 'arm64v8/macos' }
+                  args '--platform=darwin/arm64'
       }
             
             steps{
