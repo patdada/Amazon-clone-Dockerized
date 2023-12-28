@@ -43,7 +43,7 @@ pipeline {
         stage('Push to ECR') {
             steps {
                 script{
-                    //https://<AwsAccountNumber>.dkr.ecr.<region>.amazonaws.com/rekeyole-app', 'ecr:<region>:<credentialsId>
+                    //https://<AwsAccountNumber>.dkr.ecr.<region>.amazonaws.com/patdada-app', 'ecr:<region>:<credentialsId>
                     docker.withRegistry('https://908778560637.dkr.ecr.us-east-1.amazonaws.com/nodejsapp', 'ecr:us-east-1:patdada-ecr') {
                     // build image
                     def myImage = docker.build("908778560637.dkr.ecr.us-east-1.amazonaws.com/nodejsapp:latest")
