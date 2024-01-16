@@ -11,7 +11,7 @@ COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY . .
 
 # Create a non-root user
-RUN addgroup -g 1001 appuser && adduser -u 1001 -G appuser -D appuser
+RUN addgroup -g 1001 appuser && adduser -u 1001 -G appuser -D -s /bin/sh appuser
 
 # Change to the non-root user
 USER appuser
