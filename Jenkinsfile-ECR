@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     // build image
-                    docker.buildx build("908778560637.dkr.ecr.us-east-1.amazonaws.com/nodejsapp:latest")
+                    docker.build("908778560637.dkr.ecr.us-east-1.amazonaws.com/nodejsapp:latest")
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline {
                     //https://<AwsAccountNumber>.dkr.ecr.<region>.amazonaws.com/patdada-app', 'ecr:<region>:<credentialsId>
                     docker.withRegistry('https://908778560637.dkr.ecr.us-east-1.amazonaws.com/nodejsapp', 'ecr:us-east-1:patdada-ecr') {
                     // build image
-                    def myImage = docker.buildx build("908778560637.dkr.ecr.us-east-1.amazonaws.com/nodejsapp:latest")
+                    def myImage = docker.build("908778560637.dkr.ecr.us-east-1.amazonaws.com/nodejsapp:latest")
                     // push image
                     myImage.push()
                     }
