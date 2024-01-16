@@ -9,13 +9,5 @@ FROM arm64v8/node:14.17.0-alpine
 WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY . .
-
-# Create a non-root user
-RUN groupadd -g 1001 appuser && \
-    useradd -u 1001 -g appuser -D -s /bin/sh -m appuser
-
-# Change to the non-root user
-USER appuser
-
 EXPOSE 3000
 CMD ["npm", "start"]
