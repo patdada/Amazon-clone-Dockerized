@@ -1,10 +1,10 @@
-FROM scratch
+FROM alpine as builder
+COPY Makefile ./src /
+RUN make build
 
-COPY etc_passwd /etc/passwd
-# contains "nonroot:x:1337:1337:nonroot:/nonroot:/usr/sbin/nologin"
-
+FROM alpine as runtime
+RUN addgroup -S nonroot \
+    && adduser -S nonroot -G nonroot
+COPY --from=builder bin/production /app
 USER nonroot
-
-COPY production_binary /app
-
-ENTRYPOINT ["/app/production_binary"]
+ENTRYPOINT ["/app/production"]
