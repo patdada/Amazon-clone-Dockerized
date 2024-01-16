@@ -1,10 +1,13 @@
-FROM alpine as builder
-COPY Makefile ./src /
-RUN make build
+# Stage 1: Build dependencies on x86
+FROM node:14.17.0-alpine AS build
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
 
-FROM alpine as runtime
-RUN addgroup -S nonroot \
-    && adduser -S nonroot -G nonroot
-COPY --from=builder bin/production /app
-USER nonroot
-ENTRYPOINT ["/app/production"]
+# Stage 2: Copy dependencies to ARM64
+FROM arm64v8/node:14.17.0-alpine
+WORKDIR /usr/src/app
+COPY --from=build /usr/src/app/node_modules ./node_modules
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
