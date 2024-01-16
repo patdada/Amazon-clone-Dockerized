@@ -6,12 +6,13 @@ RUN npm install
 COPY . .
 RUN make build
 
-# Stage 2: Create runtime image
-FROM alpine
+FROM alpine as builder
+COPY Makefile ./src /
+RUN make build
+
+FROM alpine as runtime
 RUN addgroup -S nonroot \
     && adduser -S nonroot -G nonroot
-WORKDIR /app
-COPY --from=build /usr/src/app/bin/production .
-EXPOSE 3000
+COPY --from=builder bin/production /app
 USER nonroot
-CMD ["./production"]
+ENTRYPOINT ["/app/production"]
