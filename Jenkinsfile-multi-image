@@ -33,7 +33,7 @@ pipeline {
         stage('Build docker image') {
                agent any
                 steps {
-                sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
+                sh 'docker buildx build -t $APP_NAME:$BUILD_NUMBER .'
             }
         }
         stage('login to dockerhub') {
